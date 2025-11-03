@@ -20,6 +20,8 @@ FROM bookings b
 JOIN users u ON b.user_id = u.id
 JOIN properties p ON b.property_id = p.id
 JOIN payments pay ON b.id = pay.booking_id
+WHERE pay.amount > 0
+AND pay.status = 'completed'
 ORDER BY pay.payment_date DESC;
 
 
@@ -41,6 +43,7 @@ JOIN users u ON b.user_id = u.id
 JOIN properties p ON b.property_id = p.id
 LEFT JOIN payments pay ON b.id = pay.booking_id
 WHERE pay.amount IS NOT NULL
+AND pay.status = 'completed'
 ORDER BY pay.payment_date DESC;
 
 
@@ -60,3 +63,4 @@ CREATE INDEX IF NOT EXISTS idx_bookings_property_id ON bookings(property_id);
 -- Payments
 CREATE INDEX IF NOT EXISTS idx_payments_booking_id ON payments(booking_id);
 CREATE INDEX IF NOT EXISTS idx_payments_payment_date ON payments(payment_date);
+CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status);
