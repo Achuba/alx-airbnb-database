@@ -8,7 +8,8 @@ SELECT
     bookings.end_date
 FROM bookings
 INNER JOIN users
-    ON bookings.user_id = users.id;
+    ON bookings.user_id = users.id
+ORDER BY bookings.start_date ASC;
 
 
 -- 2️⃣ LEFT JOIN: Retrieve all properties and their reviews, including properties that have no reviews
@@ -20,7 +21,8 @@ SELECT
     reviews.comment
 FROM properties
 LEFT JOIN reviews
-    ON properties.id = reviews.property_id;
+    ON properties.id = reviews.property_id
+ORDER BY properties.id ASC, reviews.rating DESC;
 
 
 -- 3️⃣ FULL OUTER JOIN: Retrieve all users and all bookings, 
@@ -34,4 +36,5 @@ SELECT
     bookings.end_date
 FROM users
 FULL OUTER JOIN bookings
-    ON users.id = bookings.user_id;
+    ON users.id = bookings.user_id
+ORDER BY users.id ASC, bookings.start_date ASC;
